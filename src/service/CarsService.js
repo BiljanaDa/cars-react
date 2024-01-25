@@ -29,6 +29,10 @@ class CarsService {
     return this.cars;
   }
 
+  getCarById(id) {
+    return this.cars.find((car) => car.id === parseInt(id));
+  }
+
   addNewCar(newCar) {
     const carToAdd = { id: this.nextId++, ...newCar };
     this.cars.push(carToAdd);

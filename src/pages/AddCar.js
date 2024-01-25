@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import carsService from "../service/CarsService";
+import { useParams } from "react-router-dom";
 
 const years = (start = 1990, end = 2023) => {
   return Array.apply(0, Array(end - start + 1)).map(
@@ -10,6 +11,7 @@ const years = (start = 1990, end = 2023) => {
 const engines = ["diesel", "petrol", "electric", "hybrid"];
 
 export default function AddCars() {
+  const { id } = useParams();
   const [cars, setCars] = useState(carsService.getAllCars());
   useEffect(() => setCars(carsService.getAllCars()), []);
   const [newCar, setNewCar] = useState({
@@ -28,11 +30,23 @@ export default function AddCars() {
     setCars([...carsService.getAllCars()]);
   };
 
+  const handleResetForm = () => {
+    setNewCar({
+      brand: "",
+      model: "",
+      year: "",
+      maxSpeed: "",
+      isAutomatic: false,
+      engine: "",
+      numberOfDoors: "",
+    });
+  };
+
   return (
     <div className="row mt-4">
       <div className="col-12 col-md-6">
         <h2>Add a new car:</h2>
-        <form className="needs-validation">
+        <form onSubmit={handleAddCar} className="needs-validation">
           <div className="mb-3">
             <label htmlFor="brand" className="form-label">
               Brand:
@@ -43,7 +57,6 @@ export default function AddCars() {
               id="brand"
               value={newCar.brand}
               onChange={(e) => setNewCar({ ...newCar, brand: e.target.value })}
-              required
             />
           </div>
           <div className="mb-3">
@@ -56,7 +69,6 @@ export default function AddCars() {
               id="model"
               value={newCar.model}
               onChange={(e) => setNewCar({ ...newCar, model: e.target.value })}
-              required
             />
           </div>
           <div className="mb-3">
@@ -88,7 +100,7 @@ export default function AddCars() {
               onChange={(e) =>
                 setNewCar({ ...newCar, maxSpeed: e.target.value })
               }
-              required
+              style={{ WebkitAppearance: "textfield" }}
             />
           </div>
           <div className="mb-3">
@@ -115,7 +127,6 @@ export default function AddCars() {
                   value={engine}
                   onChange={() => setNewCar({ ...newCar, engine })}
                   checked={engine === newCar.engine}
-                  required
                 />
                 {engine}
               </span>
@@ -133,15 +144,18 @@ export default function AddCars() {
               onChange={(e) =>
                 setNewCar({ ...newCar, numberOfDoors: e.target.value })
               }
-              required
+              style={{ WebkitAppearance: "textfield" }}
             />
           </div>
+          <button type="submit" className="btn btn-primary rounded-pill">
+            Add Car
+          </button>
           <button
             type="button"
-            className="btn btn-primary rounded-pill"
-            onClick={handleAddCar}
+            className="btn btn-danger"
+            onClick={handleResetForm}
           >
-            Add Car
+            Reset
           </button>
         </form>
       </div>
