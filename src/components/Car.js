@@ -11,7 +11,7 @@ export default function Car({ car }) {
               <strong>Model: </strong>
               {car.model} <br />
               <strong>Year: </strong> {car.year} <br />
-              <strong>Max Speed: </strong> {car.maxSpeed}
+              <strong>Max Speed: </strong> {car.maxSpeed} km/h
               <br />
               <strong>Is Automatic: </strong> {car.isAutomatic ? "Yes" : "No"}
               <br />

@@ -27,6 +27,11 @@ export default function Navs() {
                   Cars
                 </Link>
               </li>
+              <li class="nav-item">
+                <Link className="nav-link active" to="/add">
+                  Add Car
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

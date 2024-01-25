@@ -1,5 +1,6 @@
 class CarsService {
   constructor() {
+    this.nextId = 3;
     this.cars = [
       {
         id: 1,
@@ -26,6 +27,11 @@ class CarsService {
 
   getAllCars() {
     return this.cars;
+  }
+
+  addNewCar(newCar) {
+    const carToAdd = { id: this.nextId++, ...newCar };
+    this.cars.push(carToAdd);
   }
 }
 

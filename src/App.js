@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import AppCars from "./pages/AppCars";
 import Navs from "./components/Navs";
+import AddCars from "./pages/AddCar";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"/cars"} />} />
           <Route path="/cars" element={<AppCars />} />
+          <Route path="/add" element={<AddCars />} />
         </Routes>
       </Router>
     </div>
