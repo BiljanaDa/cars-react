@@ -17,7 +17,7 @@ export default function AddCars() {
   const [newCar, setNewCar] = useState({
     brand: "",
     model: "",
-    year: "",
+    year: years()[0],
     maxSpeed: "",
     isAutomatic: false,
     engine: "",
@@ -40,6 +40,18 @@ export default function AddCars() {
       engine: "",
       numberOfDoors: "",
     });
+  };
+
+  const handlePreview = () => {
+    alert(`
+    Brand: ${newCar.brand} \n
+    Model: ${newCar.model} \n
+    Year: ${newCar.year} \n
+    Max Speed: ${newCar.maxSpeed} \n
+    Automatic: ${newCar.isAutomatic ? "Yes" : "No"} \n
+    Engine: ${newCar.engine} \n
+    Number Of Doors: ${newCar.numberOfDoors}
+    `);
   };
 
   return (
@@ -156,6 +168,13 @@ export default function AddCars() {
             onClick={handleResetForm}
           >
             Reset
+          </button>
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={handlePreview}
+          >
+            Preview
           </button>
         </form>
       </div>
