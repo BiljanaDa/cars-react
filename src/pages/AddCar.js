@@ -69,6 +69,8 @@ export default function AddCars() {
               id="brand"
               value={newCar.brand}
               onChange={(e) => setNewCar({ ...newCar, brand: e.target.value })}
+              required
+              minLength={2}
             />
           </div>
           <div className="mb-3">
@@ -81,6 +83,8 @@ export default function AddCars() {
               id="model"
               value={newCar.model}
               onChange={(e) => setNewCar({ ...newCar, model: e.target.value })}
+              required
+              minLength={2}
             />
           </div>
           <div className="mb-3">
@@ -88,6 +92,7 @@ export default function AddCars() {
               Year:
             </label>
             <select
+              required
               value={newCar.year}
               onChange={({ target }) =>
                 setNewCar({ ...newCar, year: Number(target.value) })
@@ -125,6 +130,7 @@ export default function AddCars() {
               onChange={({ target }) =>
                 setNewCar({ ...newCar, isAutomatic: target.checked })
               }
+              required
             />
           </div>
           <div className="mb-3">
@@ -134,6 +140,7 @@ export default function AddCars() {
             {engines.map((engine, index) => (
               <span key={index}>
                 <input
+                  required
                   type="radio"
                   name="engine"
                   value={engine}
@@ -149,6 +156,7 @@ export default function AddCars() {
               Number Of Doors:
             </label>
             <input
+              required
               type="number"
               className="form-control rounded-pill"
               id="numberOfDoors"
