@@ -13,13 +13,17 @@ export default function AppCars() {
     }
     getAllCars();
   },[])
+
+  const deletedCarId = (id)=>{
+    setCars(cars.filter(car=>car.id !==id))
+  }
  
 
   return (
     <div>
       <h1>Cars:</h1>
       {cars.map((car) => (
-        <Car key={car.id} car={car} />
+        <Car key={car.id} car={car} handleDeletedCar={deletedCarId}/>
       ))}
     </div>
   );

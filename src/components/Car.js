@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link} from "react-router-dom";
 import carsService from "../service/CarsService";
 
-export default function Car({ car }) {
+export default function Car({ car, handleDeletedCar }) {
   // const handleDelete = () => {
   //   carsService.deleteCar(car.id);
   // };
@@ -13,6 +13,7 @@ const handleDelete = async (id) => {
   
     await carsService.deleteCar(id);
     setCars(cars => cars.filter((car) => car.id !== id));
+    handleDeletedCar(id)
 }
 
   return (
