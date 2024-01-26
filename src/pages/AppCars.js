@@ -3,6 +3,7 @@ import carsService from "../service/CarsService";
 import Car from "../components/Car";
 
 export default function AppCars() {
+  console.log("Rendering AppCars component");
   const [cars, setCars] = useState(carsService.getAllCars());
   useEffect(() => setCars(carsService.getAllCars()), []);
 

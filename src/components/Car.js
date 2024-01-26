@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import carsService from "../service/CarsService";
 
 export default function Car({ car }) {
   console.log("Car component received:", car);
+
+  const handleDelete = () => {
+    carsService.deleteCar(car.id);
+  };
   return (
     <>
       <div key={car.id} className="row mb-2">
@@ -25,6 +30,12 @@ export default function Car({ car }) {
             <Link to={`/edit/${car.id}`}>
               <button>Edit</button>
             </Link>
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDelete(car.id)}
+            >
+              Delete
+            </button>
           </ul>
         </div>
       </div>

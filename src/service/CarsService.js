@@ -45,6 +45,12 @@ class CarsService {
       this.setCars([...this.cars]);
     }
   }
+
+  deleteCar(id) {
+    console.log(`Deleting car with ID: ${id}`);
+    this.cars = this.cars.filter((car) => car.id !== id);
+    console.log("Updated cars:", this.cars);
+  }
 }
 
 const carsService = new CarsService();
