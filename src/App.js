@@ -18,6 +18,7 @@ function App() {
           <Route path="/" element={<Navigate to={"/cars"} />} />
           <Route path="/cars" element={<AppCars />} />
           <Route path="/add" element={<AddCars />} />
+          <Route path="/edit/:id" element={<AddCars />} />
         </Routes>
       </Router>
     </div>

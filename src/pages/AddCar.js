@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import carsService from "../service/CarsService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const years = (start = 1990, end = 2023) => {
   return Array.apply(0, Array(end - start + 1)).map(
@@ -12,8 +12,23 @@ const engines = ["diesel", "petrol", "electric", "hybrid"];
 
 export default function AddCars() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [cars, setCars] = useState(carsService.getAllCars());
+
   useEffect(() => setCars(carsService.getAllCars()), []);
+
+  useEffect(() => {
+    setCars(carsService.getAllCars());
+    if (id) {
+      const existingCar = carsService.getCarById(id);
+      if (existingCar) {
+        setNewCar(existingCar);
+      }
+    }
+    carsService.setCars = setCars;
+  }, [id]);
+
   const [newCar, setNewCar] = useState({
     brand: "",
     model: "",
@@ -26,8 +41,13 @@ export default function AddCars() {
 
   const handleAddCar = (e) => {
     e.preventDefault();
-    carsService.addNewCar(newCar);
-    setCars([...carsService.getAllCars()]);
+    if (id) {
+      carsService.editCar(id, newCar);
+    } else {
+      carsService.addNewCar(newCar);
+    }
+
+    navigate("/cars");
   };
 
   const handleResetForm = () => {
@@ -130,7 +150,6 @@ export default function AddCars() {
               onChange={({ target }) =>
                 setNewCar({ ...newCar, isAutomatic: target.checked })
               }
-              required
             />
           </div>
           <div className="mb-3">
@@ -168,7 +187,7 @@ export default function AddCars() {
             />
           </div>
           <button type="submit" className="btn btn-primary rounded-pill">
-            Add Car
+            {id ? "Update Car" : "Add Car"}
           </button>
           <button
             type="button"

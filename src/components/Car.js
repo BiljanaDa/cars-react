@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Car({ car }) {
+  console.log("Car component received:", car);
   return (
     <>
       <div key={car.id} className="row mb-2">
@@ -20,6 +22,9 @@ export default function Car({ car }) {
               <strong>Number Of Doors: </strong> {car.numberOfDoors}
               <br />
             </li>
+            <Link to={`/edit/${car.id}`}>
+              <button>Edit</button>
+            </Link>
           </ul>
         </div>
       </div>

@@ -37,6 +37,14 @@ class CarsService {
     const carToAdd = { id: this.nextId++, ...newCar };
     this.cars.push(carToAdd);
   }
+
+  editCar(id, updatedCar) {
+    const index = this.cars.findIndex((car) => car.id === id);
+    if (index !== -1) {
+      this.cars[index] = { ...this.cars[index], ...updatedCar };
+      this.setCars([...this.cars]);
+    }
+  }
 }
 
 const carsService = new CarsService();
