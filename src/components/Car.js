@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import carsService from "../service/CarsService";
 
 export default function Car({ car }) {
-  console.log("Car component received:", car);
+  // const handleDelete = () => {
+  //   carsService.deleteCar(car.id);
+  // };
+  const [cars, setCars] = useState([]);
+  
+const handleDelete = async (id) => {
+  console.log("obrisani id", id);
+  
+    await carsService.deleteCar(id);
+    setCars(cars => cars.filter((car) => car.id !== id));
+}
 
-  const handleDelete = () => {
-    carsService.deleteCar(car.id);
-  };
   return (
     <>
       <div key={car.id} className="row mb-2">

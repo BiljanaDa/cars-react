@@ -14,20 +14,30 @@ export default function AddCars() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [cars, setCars] = useState(carsService.getAllCars());
+  const [cars, setCars] = useState([]);
 
-  useEffect(() => setCars(carsService.getAllCars()), []);
+  // useEffect(() => setCars(carsService.getAllCars()), []);
 
-  useEffect(() => {
-    setCars(carsService.getAllCars());
-    if (id) {
-      const existingCar = carsService.getCarById(id);
-      if (existingCar) {
-        setNewCar(existingCar);
-      }
+  // useEffect(() => {
+  //   setCars(carsService.getAllCars());
+  //   if (id) {
+  //     const existingCar = carsService.getCarById(id);
+  //     if (existingCar) {
+  //       setNewCar(existingCar);
+  //     }
+  //   }
+  //   carsService.setCars = setCars;
+  // }, [id]);
+  useEffect(()=>{
+    async function getAllCars() {
+      if(id) {
+        const data = await carsService.getCarById(id);
+      if (data) {
+        setNewCar(data);
+      }}
     }
-    carsService.setCars = setCars;
-  }, [id]);
+    getAllCars();
+  },[])
 
   const [newCar, setNewCar] = useState({
     brand: "",
@@ -39,12 +49,12 @@ export default function AddCars() {
     numberOfDoors: "",
   });
 
-  const handleAddCar = (e) => {
+  const handleAddCar = async (e) => {
     e.preventDefault();
     if (id) {
-      carsService.editCar(id, newCar);
+      await carsService.editCar(id, newCar);
     } else {
-      carsService.addNewCar(newCar);
+      await carsService.addNewCar(newCar);
     }
 
     navigate("/cars");

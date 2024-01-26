@@ -3,9 +3,17 @@ import carsService from "../service/CarsService";
 import Car from "../components/Car";
 
 export default function AppCars() {
-  console.log("Rendering AppCars component");
-  const [cars, setCars] = useState(carsService.getAllCars());
-  useEffect(() => setCars(carsService.getAllCars()), []);
+  const [cars, setCars] = useState([]);
+  // useEffect(() => setCars(carsService.getAllCars()), []);
+  useEffect(()=>{
+    async function getAllCars() {
+      const data = await carsService.getAllCars();
+      setCars(data);
+      
+    }
+    getAllCars();
+  },[])
+ 
 
   return (
     <div>
